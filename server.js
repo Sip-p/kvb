@@ -27,17 +27,7 @@ import authRoutes from "./src/routes/auth.routes.js";
 dotenv.config();
  
 const app = express();
-app.use(json())
-// Middlewares
-app.use(express.json());
-// app.use(
-//   cors({
-// origin: ["http://localhost:5173", "https://kvclient.vercel.app"],
-//    credentials: true,
-//   })
-// );
-
-// Test route
+ 
 
 app.use(
   cors({
@@ -50,6 +40,18 @@ app.use(
 
 // Important: allow preflight
 app.options("*", cors());
+// Middlewares
+app.use(express.json());
+// app.use(
+//   cors({
+// origin: ["http://localhost:5173", "https://kvclient.vercel.app"],
+//    credentials: true,
+//   })
+// );
+
+// Test route
+
+ 
 
 app.get("/", (req, res) => {
   res.send("Server running...");
