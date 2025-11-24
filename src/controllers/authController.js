@@ -30,22 +30,25 @@ export const submitContactForm = async (req, res) => {
 
     // verify SMTP connection
     
-    const transporter = nodemailer.createTransport({
-  service: "gmail",
+ const transporter = nodemailer.createTransport({
+  host: "smtp-relay.brevo.com",
+  port: 587,
+  secure: false,
   auth: {
-    user: process.env.CONTACT_EMAIL,        // your gmail
-    pass: process.env.CONTACT_EMAIL_PASS,   // your app password
+    user: process.env.BREVO_EMAIL,
+    pass: process.env.BREVO_SMTP_KEY,
   },
 });
+
 
     transporter.verify((err) => {
       if (err) console.log("SMTP ERROR:", err);
       else console.log("SMTP CONNECTED SUCCESSFULLY");
     });
 
-    const mailOptions = {
-  from: `"KalingaVriti Contact" <${process.env.CONTACT_EMAIL}>`,
-  to: process.env.CONTACT_EMAIL,  // receive the email at your own gmail
+ const mailOptions = {
+  from: `"KalingaVriti Contact" <${process.env.BREVO_EMAIL}>`,
+  to: process.env.BREVO_EMAIL,
   subject: "New Contact Form Submission",
   html: `
     <h2>New Inquiry From Website</h2>
@@ -56,6 +59,7 @@ export const submitContactForm = async (req, res) => {
     <p>${message}</p>
   `,
 };
+
 
 
     await transporter.sendMail(mailOptions);
