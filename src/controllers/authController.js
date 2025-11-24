@@ -2,6 +2,65 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
 import User from '../models/User.js';
+
+import nodemailer from "nodemailer";
+
+ 
+// POST /api/contact
+export const submitContactForm = async (req, res) => {
+  console.log("inside");
+  const { name, email, phone, message } = req.body;
+  
+  console.log(name, email, phone, message);
+
+  if (!name || !email || !phone || !message) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  try {
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.CONTACT_EMAIL,
+        pass: process.env.CONTACT_EMAIL_PASS,
+      },
+    });
+
+    // verify SMTP connection
+    transporter.verify((err) => {
+      if (err) console.log("SMTP ERROR:", err);
+      else console.log("SMTP CONNECTED SUCCESSFULLY");
+    });
+
+    const mailOptions = {
+  from: `"KalingaVriti Contact" <${process.env.CONTACT_EMAIL}>`,
+  to: process.env.CONTACT_EMAIL,  // receive the email at your own gmail
+  subject: "New Contact Form Submission",
+  html: `
+    <h2>New Inquiry From Website</h2>
+    <p><strong>Name:</strong> ${name}</p>
+    <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Phone:</strong> ${phone}</p>
+    <p><strong>Message:</strong></p>
+    <p>${message}</p>
+  `,
+};
+
+
+    await transporter.sendMail(mailOptions);
+
+    res.json({ success: true, message: "Message sent successfully!" });
+
+  } catch (err) {
+    // console.error("Contact form error:", err);
+    res.status(500).json({ message: "Failed to send message" });
+  }
+};
+
+
+
  
 const googleLogin = async (req, res) => {
   const { code } = req.body;
