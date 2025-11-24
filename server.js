@@ -32,7 +32,7 @@ app.use(json())
 app.use(express.json());
 app.use(
   cors({
- origin: ["http://localhost:5173", "https://kvf-v68z.vercel.app"],  
+ origin: ["http://localhost:5173", "https://kvclient.vercel.app/"],  
    credentials: true,
   })
 );

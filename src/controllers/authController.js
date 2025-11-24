@@ -54,7 +54,7 @@ export const submitContactForm = async (req, res) => {
     res.json({ success: true, message: "Message sent successfully!" });
 
   } catch (err) {
-    // console.error("Contact form error:", err);
+     console.error("Contact form error:", err);
     res.status(500).json({ message: "Failed to send message" });
   }
 };
