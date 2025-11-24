@@ -23,10 +23,10 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/community" element={ 
-            <ProtectedRoute><Community /></ProtectedRoute>
+             <Community /> 
           } />
-          <Route path="/events" element={<ProtectedRoute><Events /></ProtectedRoute>} />
-          <Route path="/blog" element={<ProtectedRoute><Blog /></ProtectedRoute>} />
+          <Route path="/events" element={ <Events /> } />
+          <Route path="/blog" element={ <Blog /> } />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

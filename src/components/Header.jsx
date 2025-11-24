@@ -235,7 +235,7 @@ export default function Header() {
 
           {/* JOIN BUTTON */}
           <Link
-            to="/signup"
+            to="/contact"
             className="px-5 py-2 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-md shadow hover:shadow-lg transition"
           >
             Join Us
@@ -292,7 +292,7 @@ export default function Header() {
 
               {/* MOBILE JOIN */}
               <Link
-                to="/signup"
+                to="/contact"
                 className="mt-3 px-5 py-2 bg-yellow-500 text-white rounded-md"
                 onClick={() => setMenuOpen(false)}
               >
