@@ -13,6 +13,8 @@ const fadeUp = {
 };
 
 export default function ContactUs() {
+  const [formKey, setFormKey] = React.useState(Date.now()); // <--- reset key
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -20,9 +22,12 @@ export default function ContactUs() {
     const data = Object.fromEntries(form.entries());
 
     try {
-      const res = await api.post("/auth/contact", data);
+      await api.post("/auth/contact", data);
+
       alert("Message sent successfully!");
-      e.target.reset();
+
+      // 🔥 resets all inputs
+      setFormKey(Date.now());
     } catch (err) {
       console.log(err);
       alert("Failed to send message.");
@@ -117,7 +122,8 @@ export default function ContactUs() {
         >
           <h3 className="text-lg font-semibold mb-4">Enter Details</h3>
 
-          <form className="space-y-4" onSubmit={handleSubmit}>
+          {/* 🔥 Form fully resets after submit */}
+          <form key={formKey} className="space-y-4" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <motion.input
                 type="text"
