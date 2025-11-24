@@ -18,17 +18,26 @@ export const submitContactForm = async (req, res) => {
   }
 
   try {
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
-      auth: {
-        user: process.env.CONTACT_EMAIL,
-        pass: process.env.CONTACT_EMAIL_PASS,
-      },
-    });
+    // const transporter = nodemailer.createTransport({
+    //   host: "smtp.gmail.com",
+    //   port: 587,
+    //   secure: false,
+    //   auth: {
+    //     user: process.env.CONTACT_EMAIL,
+    //     pass: process.env.CONTACT_EMAIL_PASS,
+    //   },
+    // });
 
     // verify SMTP connection
+    
+    const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.CONTACT_EMAIL,        // your gmail
+    pass: process.env.CONTACT_EMAIL_PASS,   // your app password
+  },
+});
+
     transporter.verify((err) => {
       if (err) console.log("SMTP ERROR:", err);
       else console.log("SMTP CONNECTED SUCCESSFULLY");
