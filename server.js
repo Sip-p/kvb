@@ -30,14 +30,27 @@ const app = express();
 app.use(json())
 // Middlewares
 app.use(express.json());
+// app.use(
+//   cors({
+// origin: ["http://localhost:5173", "https://kvclient.vercel.app"],
+//    credentials: true,
+//   })
+// );
+
+// Test route
+
 app.use(
   cors({
-origin: ["http://localhost:5173", "https://kvclient.vercel.app"],
-   credentials: true,
+    origin: ["http://localhost:5173", "https://kvclient.vercel.app"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 
-// Test route
+// Important: allow preflight
+app.options("*", cors());
+
 app.get("/", (req, res) => {
   res.send("Server running...");
 });
