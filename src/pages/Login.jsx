@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import  api  from "../api/api";
 import { useNavigate, Link } from "react-router-dom";
 import { FaGoogle, FaLinkedinIn, FaPhoneAlt } from "react-icons/fa";
-import login from "../assets/login.png";
+import login from "../assets/Login.png";
 import { useGoogleLogin } from '@react-oauth/google';
 
 export default function Login() {
